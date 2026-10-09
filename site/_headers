@@ -1,0 +1,32 @@
+# Security and caching headers.
+# Netlify and Cloudflare Pages read this file automatically.
+# On another host (Vercel, nginx, S3 + CloudFront) copy the same headers into that host's own config.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  # Everything is first-party. connect-src and form-action allow https so the form can post to
+  # the service you choose (Formspree, Netlify Forms, your own API). Tighten them to that one host once it is set.
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https:; form-action 'self' https:; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+
+# the page itself: always check for a fresh copy
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# css and js keep their names, so they are re-checked every hour
+/assets/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+/assets/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# images and video: cached for 30 days. If you replace one, give the new file a new name.
+/assets/img/*
+  Cache-Control: public, max-age=2592000
+/assets/video/*
+  Cache-Control: public, max-age=2592000

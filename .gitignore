@@ -1,0 +1,5 @@
+.DS_Store
+
+# The original 200 MB source video stays on your computer. GitHub rejects files over 100 MB,
+# and only the two compressed copies in site/assets/video/ are ever deployed.
+Pitch Deck 1 - Connext.mp4

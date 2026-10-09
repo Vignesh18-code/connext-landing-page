@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Connext — Our new website is on the way</title>
+  <meta name="description" content="Connext is building its new website: scheduled, shared and on-demand logistics for businesses and drivers in Chennai. Leave your details and we will tell you the moment we go live.">
+  <meta name="theme-color" content="#07111f">
+  <meta name="color-scheme" content="dark">
+
+  <!-- EDIT BEFORE LAUNCH: replace https://example.com with the real domain (see README.md) -->
+  <link rel="canonical" href="https://example.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Connext">
+  <meta property="og:title" content="Connext — Our new website is on the way">
+  <meta property="og:description" content="Scheduled, shared and on-demand logistics. Leave your details and we will tell you the moment we go live.">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:image" content="https://example.com/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <link rel="preload" as="image" href="assets/img/poster.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#notify">Skip to the form</a>
+
+  <main>
+    <!-- 1 · the video -->
+    <section class="stage" aria-label="Connext introduction video">
+      <div class="player" data-player>
+        <video class="player__video" poster="assets/img/poster.jpg" muted playsinline loop preload="metadata"
+               aria-label="Connext introduction video"></video>
+
+        <button class="player__big" type="button" aria-label="Play video" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>
+        </button>
+
+        <button class="player__sound" type="button" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.6l4.4 3.7V5.8L7.6 9.5H4Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span>Play with sound</span>
+        </button>
+
+        <div class="player__bar">
+          <button class="pbtn" type="button" data-act="toggle" aria-label="Pause">
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>
+          </button>
+          <span class="ptime" aria-hidden="true"><span data-time="now">0:00</span><span class="ptime__sep">/</span><span data-time="total">0:00</span></span>
+          <input class="pseek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek video">
+          <button class="pbtn" type="button" data-act="mute" aria-label="Unmute">
+            <svg class="i-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.6l4.4 3.7V5.8L7.6 9.5H4Z"/><path d="m15.5 9.5 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg class="i-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.6l4.4 3.7V5.8L7.6 9.5H4Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+          <button class="pbtn" type="button" data-act="fullscreen" aria-label="Full screen">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <p class="player__error" role="alert" hidden>The video could not be loaded. Please check your connection and refresh the page.</p>
+      </div>
+
+      <noscript><p class="noscript">Turn on JavaScript to watch the Connext video.</p></noscript>
+
+      <a class="cue" href="#message" aria-label="Scroll down">
+        <span>Scroll</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+
+    <!-- 2 · the message and the form -->
+    <section class="message" id="message">
+      <div class="wrap message__grid">
+        <div class="message__copy">
+          <img class="brand" src="assets/img/logo.png" alt="Connext" width="867" height="143" decoding="async">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Coming soon</p>
+          <h1>We’re building our new <span class="hl">website</span>.</h1>
+          <p class="lede">Connext is bringing scheduled, shared and on-demand logistics together in one simple place. It’s almost ready. Leave your details and we’ll let you know the moment we go live.</p>
+          <ul class="points" aria-label="What Connext offers">
+            <li>Scheduled</li><li>Shared</li><li>On-demand</li>
+          </ul>
+        </div>
+
+        <div class="card" id="notify" tabindex="-1" aria-labelledby="form-title">
+          <form class="form" novalidate autocomplete="on">
+            <h2 id="form-title">Be the first to know</h2>
+            <p class="form__sub">Tell us a little about you. It takes ten seconds.</p>
+
+            <div class="field">
+              <label for="f-name">Full name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" placeholder="Your name" aria-describedby="e-name">
+              <p class="error" id="e-name" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="120" placeholder="you@company.com" aria-describedby="e-email">
+              <p class="error" id="e-email" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="f-phone">Phone / WhatsApp <span class="opt">optional</span></label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="+91 98765 43210" aria-describedby="e-phone">
+              <p class="error" id="e-phone" hidden></p>
+            </div>
+
+            <fieldset class="field seg">
+              <legend>I am a <span class="opt">optional</span></legend>
+              <div class="seg__row">
+                <label><input type="radio" name="role" value="Business"><span>Business</span></label>
+                <label><input type="radio" name="role" value="Driver"><span>Driver</span></label>
+                <label><input type="radio" name="role" value="Other"><span>Other</span></label>
+              </div>
+            </fieldset>
+
+            <!-- spam trap: real people never see or fill this -->
+            <div class="trap" aria-hidden="true">
+              <label for="f-site">Leave this field empty</label>
+              <input id="f-site" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button class="btn" type="submit">
+              <span class="btn__label">Notify me</span>
+              <svg class="btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="btn__spin" aria-hidden="true"></span>
+            </button>
+
+            <p class="form__note">We’ll only use your details to contact you about Connext. No spam.</p>
+            <p class="status" role="status" aria-live="polite" hidden></p>
+          </form>
+
+          <div class="thanks" hidden>
+            <div class="thanks__tick" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h2 tabindex="-1">Thank you!</h2>
+            <p>We’ve got your details. We’ll be in touch as soon as the new Connext website is live.</p>
+            <button class="link" type="button" data-again>Send another response</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/img/logo-tagline.png" alt="Connext. Faster, smarter, greener." width="866" height="202" loading="lazy" decoding="async">
+          <p>Smarter logistics. Every trip counts.</p>
+        </div>
+        <div class="footer__col">
+          <h3>Registered office</h3>
+          <address>
+            <strong>Locogrow Solution Pvt Ltd</strong><br>
+            Innov8 SKCL Tech Square, 2nd Floor, 14 SP, SIDCOT V.K Industrial Estate, Guindy, <span class="nw">Chennai – 600 032</span>
+          </address>
+          <p class="footer__cin">CIN: U52219TN2024PTC169350</p>
+        </div>
+        <div class="footer__col">
+          <h3>Stay in touch</h3>
+          <p>Leave your details in the form and our team will get back to you.</p>
+          <a class="footer__link" href="#notify">Go to the form</a>
+        </div>
+      </div>
+      <div class="footer__bar">
+        <p>© <span data-year>2026</span> Locogrow Solution Pvt Ltd. All rights reserved.</p>
+        <p>Scheduled · Shared · On-demand</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
