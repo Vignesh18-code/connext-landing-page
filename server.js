@@ -310,6 +310,12 @@ function createServer(options = {}) {
     if (!/^application\/json\b/i.test(req.headers['content-type'] || '')) {
       return sendJson(res, 415, { error: 'Send the form as JSON.' });
     }
+    if (process.env.DEBUG_CLIENT_IP === '1') {   // TEMPORARY diagnostic, removed again after checking Railway's headers
+      log('info', 'client ip debug', {
+        real: req.headers['x-real-ip'], xff: req.headers['x-forwarded-for'], envoy: req.headers['x-envoy-external-address'],
+        cf: req.headers['cf-connecting-ip'], fwd: req.headers.forwarded, socket: req.socket.remoteAddress, chosen: clientIp(req),
+      });
+    }
     if (!signupLimiter.take(clientIp(req))) {
       log('warn', 'signup rate limited');
       return sendJson(res, 429, { error: 'Too many attempts. Please wait a few minutes and try again.' }, { 'Retry-After': '600' });
