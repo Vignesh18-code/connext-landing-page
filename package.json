@@ -1,0 +1,18 @@
+{
+  "name": "connext-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Connext coming-soon page: serves the static site and stores sign-ups in Postgres.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "LEADS_DEV_MODE=1 PORT=5195 node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "pg": "^8.13.0"
+  }
+}

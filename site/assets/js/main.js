@@ -3,13 +3,15 @@
   'use strict';
 
   /* ------------------------------------------------------------------------
-     EDIT BEFORE LAUNCH — where the form goes (see README.md, "The form").
-     endpoint : the URL of your form service, for example https://formspree.io/f/xxxxxxx
-                The page sends the form to it as a normal form post and expects a 2xx answer.
-     email    : used only if no endpoint is set; the visitor's mail app opens with the message ready.
+     Where the form goes (see README.md, "Where the sign-ups go").
+     endpoint : '/api/notify' is the sign-up endpoint of server.js, which saves each sign-up in your
+                Railway database. If the page is hosted somewhere without that server, put the URL of a
+                form service here instead (Formspree, for example: https://formspree.io/f/xxxxxxx).
+                The form is sent as JSON and a 2xx answer means success.
+     email    : used only if endpoint is empty; the visitor's mail app opens with the message ready.
      ------------------------------------------------------------------------ */
   const CONFIG = {
-    endpoint: '',
+    endpoint: '/api/notify',
     email: '',
   };
 
@@ -213,8 +215,17 @@
 
     const send = async (data) => {
       if (CONFIG.endpoint) {
-        const res = await fetch(CONFIG.endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-        if (!res.ok) throw new Error(`The form service answered ${res.status}`);
+        const res = await fetch(CONFIG.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(Object.fromEntries(data)),
+        });
+        if (!res.ok) {
+          const problem = new Error(`The form service answered ${res.status}`);
+          problem.status = res.status;
+          try { problem.detail = (await res.json()).error; } catch { /* no message in the answer */ }
+          throw problem;
+        }
         return;
       }
       if (CONFIG.email) {
@@ -257,7 +268,11 @@
         done();
       } catch (error) {
         console.error('[form]', error);
-        setStatus('Sorry, we couldn’t send that just now. Please try again in a moment.');
+        setStatus(
+          error.status === 429 ? 'You’ve tried a few times. Please wait a few minutes and try again.'
+          : error.status === 422 && error.detail ? error.detail
+          : 'Sorry, we couldn’t send that just now. Please try again in a moment.',
+        );
       } finally {
         setBusy(false);
       }

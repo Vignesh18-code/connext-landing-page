@@ -1,4 +1,8 @@
 .DS_Store
+node_modules/
+.env
+.env.*
+*.log
 
 # The original 200 MB source video stays on your computer. GitHub rejects files over 100 MB,
 # and only the two compressed copies in site/assets/video/ are ever deployed.
