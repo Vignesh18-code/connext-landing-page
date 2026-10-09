@@ -49,9 +49,18 @@ Upload the **`site`** folder. Nothing to build.
 
 - **Netlify**: drag `site` onto app.netlify.com/drop.
 - **Cloudflare Pages**: Create project → Direct upload → choose `site`.
-- **Vercel**: `cd site && npx vercel --prod`. Vercel ignores `_headers`; copy the same headers into a `vercel.json`.
+- **Vercel**: import this repository at vercel.com/new and deploy with the defaults. `vercel.json` already points Vercel at
+  `site/` and sets the same headers as `_headers` (keep the two in sync if you change one).
 - **Any other host** (nginx, S3 + CloudFront, shared hosting): upload the folder contents to the web root, and make sure
   the server answers video byte-range requests (nearly all do) and sends the headers in `_headers`.
+
+### Your own domain on Vercel (DNS kept at GoDaddy)
+
+In Vercel: Project → Settings → Domains → add `connextindia.com` (and `www.connextindia.com`). Vercel then shows the exact
+records to use; at the time of writing they are an **A** record `@` → `76.76.21.21` and a **CNAME** `www` → `cname.vercel-dns.com`.
+In GoDaddy change **only** the web records (the `@` A records and the `www` CNAME). Leave the MX, TXT (SPF, DKIM, Google
+verification), NS and `_domainconnect` records alone, because they carry the company email. If the domain was
+connected to Framer before, remove it from the Framer project too.
 
 ## Replacing the video
 
