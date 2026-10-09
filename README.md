@@ -61,7 +61,7 @@ Railway cannot point the **bare** `connextindia.com` at itself while DNS is at G
 3. **Leave every other record alone** (MX, TXT for SPF/DKIM/Google, NS, `_domainconnect`): they carry the company email.
    If the domain is still attached to a Framer project, remove it there too.
 
-When it works, replace `https://example.com` in `site/index.html` (`canonical`, `og:url`, `og:image`) with `https://www.connextindia.com`.
+The page's `canonical`, `og:url` and `og:image` tags in `site/index.html` already use `https://www.connextindia.com`; change them if the address ever changes.
 
 ## Before you tell people about it
 
