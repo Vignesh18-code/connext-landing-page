@@ -179,16 +179,31 @@ test('refuses sign-ups (503) when there is no database, and when saving fails', 
   assert.match((await res.json()).error, /temporarily unavailable/);
 });
 
-test('rate-limits one visitor, not everyone', async (t) => {
+test('rate-limits one visitor, not everyone (X-Real-IP, as Railway sends it)', async (t) => {
   const s = await start(t, { signupsPer10Min: 3, trustProxyHops: 1 });
-  const as = (ip, n) => post(s.base, { ...good, email: `person${n}@example.com` }, { 'X-Forwarded-For': ip });
+  const as = (ip, n) => post(s.base, { ...good, email: `person${n}@example.com` }, { 'X-Real-IP': ip });
   for (let i = 0; i < 3; i += 1) assert.equal((await as('9.9.9.9', i)).status, 200);
   const blocked = await as('9.9.9.9', 99);
   assert.equal(blocked.status, 429);
   assert.equal(blocked.headers.get('retry-after'), '600');
   assert.equal((await as('8.8.8.8', 100)).status, 200, 'another visitor is unaffected');
-  assert.equal((await as('1.1.1.1, 7.7.7.7', 101)).status, 200, 'only the last hop is trusted, a faked first hop changes nothing');
-  assert.equal((await as('2.2.2.2, 9.9.9.9', 102)).status, 429, 'same real visitor behind a faked first hop is still limited');
+});
+
+test('without X-Real-IP the last X-Forwarded-For entry is the visitor, a faked first one changes nothing', async (t) => {
+  const s = await start(t, { signupsPer10Min: 2, trustProxyHops: 1 });
+  const as = (xff, n) => post(s.base, { ...good, email: `person${n}@example.com` }, { 'X-Forwarded-For': xff });
+  assert.equal((await as('9.9.9.9', 1)).status, 200);
+  assert.equal((await as('1.1.1.1, 9.9.9.9', 2)).status, 200);
+  assert.equal((await as('2.2.2.2, 9.9.9.9', 3)).status, 429, 'same visitor behind faked first entries is still limited');
+  assert.equal((await as('7.7.7.7', 4)).status, 200, 'a different visitor is unaffected');
+});
+
+test('when no proxy is trusted the IP headers are ignored (they could be faked)', async (t) => {
+  const s = await start(t, { signupsPer10Min: 2, trustProxyHops: 0 });
+  const as = (ip, n) => post(s.base, { ...good, email: `person${n}@example.com` }, { 'X-Real-IP': ip, 'X-Forwarded-For': ip });
+  assert.equal((await as('1.1.1.1', 1)).status, 200);
+  assert.equal((await as('2.2.2.2', 2)).status, 200);
+  assert.equal((await as('3.3.3.3', 3)).status, 429, 'faking a new address each time does not escape the limit');
 });
 
 /* ---------------------------------------------------------------- admin export */

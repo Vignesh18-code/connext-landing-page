@@ -19,7 +19,7 @@ A small Node server (`server.js`) serves it, and saves each sign-up in a Postgre
 ```bash
 npm install
 npm run dev        # http://localhost:5195, sign-ups are kept in memory only and vanish on restart
-npm test           # 18 checks: files, video seeking, security, form, rate limit, CSV export
+npm test           # 20 checks: files, video seeking, security, form, rate limit, CSV export
 ```
 
 ## Put it live on Railway

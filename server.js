@@ -263,8 +263,11 @@ function createServer(options = {}) {
 
   function clientIp(req) {
     if (trustProxyHops > 0) {
+      // Railway documents X-Real-IP as the visitor's address (it is the only IP header it lists)
+      const real = String(req.headers['x-real-ip'] || '').trim();
+      if (real) return real;
+      // other proxies: the address the closest trusted proxy saw; anything further left can be faked
       const chain = String(req.headers['x-forwarded-for'] || '').split(',').map((s) => s.trim()).filter(Boolean);
-      // the address the closest trusted proxy saw; anything further left can be faked by the visitor
       if (chain.length) return chain[Math.max(0, chain.length - trustProxyHops)];
     }
     return req.socket.remoteAddress || 'unknown';
